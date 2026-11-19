@@ -1,0 +1,73 @@
+name: "Fallo del programa / Bug report"
+description: "Reportar un cierre inesperado, error en la interfaz o cuelgue del ejecutable / Report an unexpected crash, UI glitch, or freeze"
+title: "[Fallo / Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Utiliza esta plantilla para reportar errores en el programa, fallos de interfaz, excepciones no capturadas o cierres inesperados.
+        *Use this template to report application crashes, interface issues, unhandled exceptions, or freezes.*
+
+  - type: input
+    id: version
+    attributes:
+      label: "Versión de MeshQSolid / Version"
+      description: "Indica la versión exacta de la beta / Specify the exact beta version"
+      placeholder: "v0.2.0-beta"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: "Versión de Windows / Windows version"
+      description: "Versión exacta de Windows / Exact Windows version"
+      options:
+        - "Windows 11 64-bit (23H2 o posterior)"
+        - "Windows 11 64-bit (22H2 o anterior)"
+        - "Windows 10 64-bit (22H2 o posterior)"
+        - "Windows 10 64-bit (versión anterior)"
+        - "Otro / Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Pasos para reproducir el fallo / Steps to reproduce"
+      description: "Indica paso a paso cómo provocar el fallo / Step-by-step description of how to trigger the issue"
+      placeholder: |
+        1. Abrir MeshQSolid.exe
+        2. Arrastrar un archivo 3MF con múltiples cuerpos
+        3. Cambiar el tema a Oscuro y pulsar 'Convertir todo'
+        4. El programa se cierra sin aviso
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: "Qué ocurrió / What happened"
+      description: "Describe el síntoma exacto: mensaje de error emergente, cierre repentino, pantalla en blanco, etc. / Describe the exact symptom: crash, error popup, blank screen, etc."
+      placeholder: "El programa se cerró repentinamente al pulsar el botón..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Qué debería haber ocurrido / What should have happened"
+      description: "Comportamiento esperado / Expected behavior"
+      placeholder: "Debería haber iniciado la conversión y mostrado la barra de progreso sin cerrarse."
+    validations:
+      required: true
+
+  - type: textarea
+    id: attachments
+    attributes:
+      label: "Capturas de pantalla o registros / Screenshots or logs"
+      description: "Adjunta capturas de pantalla, mensajes de la consola de depuración o archivos de registro si los tienes / Attach screenshots, console output, or log files if available."
+      placeholder: "Arrastra capturas o pega registros aquí / Drag screenshots or paste logs here"
+    validations:
+      required: false

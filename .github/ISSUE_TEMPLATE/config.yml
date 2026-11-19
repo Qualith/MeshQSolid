@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Descargas y versiones anteriores / Releases & previous versions"
+    url: "https://github.com/Qualith/MeshQSolid/releases"
+    about: "Descarga la última versión o consulta el historial de publicaciones / Download the latest release or view release history"
+  - name: "Documentación y guía rápida / Documentation & quick start"
+    url: "https://github.com/Qualith/MeshQSolid/blob/main/README.md"
+    about: "Consulta los requisitos, flujo de trabajo y opciones de uso / Read system requirements, workflow, and usage instructions"

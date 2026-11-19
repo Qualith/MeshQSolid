@@ -1,76 +1,112 @@
-# Mesh2Solid
+# MeshQSolid
 
 **Español** | [English](README.en.md)
 
-**De una malla 3D a un sólido CAD validado, con perfiles SVG para piezas tipo Token.**
+*(antes Mesh2Solid)*
 
-Mesh2Solid es una aplicación de escritorio que permite abrir modelos **STL, OBJ y 3MF**, analizar su geometría y reconstruir sólidos dentro de las familias de formas admitidas. Está orientada a dos usos: **tokens y piezas de espesor escalonado** con relieves, rebajes o agujeros, y **piezas mecánicas** con superficies reconocibles.
+Conversión de mallas 3D poligonales (STL, OBJ, 3MF) a sólidos CAD en formato STEP (B-Rep).
 
-El resultado se puede exportar a **STEP** para continuar trabajando en un programa CAD. En el modo Token también se pueden obtener **perfiles SVG a escala real** y generar piezas de relleno independientes para impresión multicolor.
+Está pensado para la impresión 3D: permite tomar una malla descargada de un repositorio o exportada de otro software, convertirla en sólido y modificarla en un editor de sólidos (cambiar una medida, añadir un taladro, adaptar un encaje) para volver a imprimirla. Funciona mejor con mallas que proceden de un diseño CAD exportado (las habituales con caras planas, cilindros y redondeos), ya que reconstruye esas superficies analíticas exactas. No es una herramienta de ingeniería inversa para escaneos 3D: las mallas de escáner (ruidosas, densas u orgánicas) no son su objetivo, y en esos casos el resultado será como mucho aproximado o facetado.
 
-**[Descargar Mesh2Solid 0.1.17 para Windows x64](https://github.com/Qualith/Mesh2Solid/releases/tag/v0.1.17)** · Portable · Interfaz en español e inglés
+MeshQSolid reconstruye superficies analíticas (planos, cilindros, conos, revoluciones, solevados reglados y determinadas roscas normalizadas) a partir de mallas triangulares para su uso en editores de sólidos CAD.
 
-![Comparación de la malla original y el sólido reconstruido en Mesh2Solid](images/comparacion-malla-solido.png)
+**La beta v0.2.0 de MeshQSolid está en preparación.** Mientras tanto, puedes descargar la última versión publicada con el nombre anterior, [Mesh2Solid 0.1.17](https://github.com/Qualith/MeshQSolid/releases/tag/v0.1.17) (paquete portable para Windows x64), con la interfaz antigua.
 
-*Ejemplo de reconstrucción mecánica: malla original a la izquierda y sólido validado a la derecha. Las cámaras de ambos visores están sincronizadas para comparar la misma zona.*
+---
 
-## Qué puedes hacer
+> [!IMPORTANT]
+> **Aviso de versión beta y revisión antes de fabricar:**
+> - Esta versión es una **beta** y puede fallar.
+> - Las piezas complejas (formas orgánicas, redondeos encadenados o superficies libres) saldrán como sólidos aproximados o facetados.
+> - **Conviene revisar siempre la geometría y las dimensiones del resultado en tu editor de sólidos antes de fabricar**, como establece la licencia.
+> - Si una pieza no sale bien, el reporte más útil es abrir una incidencia adjuntando el archivo de la malla.
 
-| Función | Para qué sirve |
-|---|---|
-| **Abrir STL, OBJ y 3MF** | Cargar o arrastrar una malla, revisar sus dimensiones y ajustar unidades y escala. |
-| **Analizar la geometría** | Consultar el diagnóstico, explorar las regiones detectadas y seleccionar u ocultar zonas en el visor. |
-| **Reconstruir un sólido** | Elegir Automático, Token / Extrusión o Mecánico según el tipo de pieza. |
-| **Comparar malla y sólido** | Revisar ambos modelos en dos visores con giro, desplazamiento y zoom sincronizados. |
-| **Exportar STEP** | Guardar el sólido; la aplicación relee el archivo y comprueba el resultado antes de dar la exportación por válida. |
-| **Extraer perfiles SVG** | Exportar un perfil, una rama del árbol o el contorno y las caras A/B de cada cuerpo, a escala de 1 unidad = 1 mm. |
-| **Crear rellenos para Tokens** | Generar piezas independientes en huecos admitidos y exportar el conjunto en STEP o 3MF. |
-| **Guardar informes** | Conservar el diagnóstico, el resultado de la reconstrucción y los motivos de un rechazo. |
+---
 
-## Token: del volumen a los perfiles 2D
+## Qué piezas admite
 
-El modo **Token / Extrusión** está pensado para piezas con un eje de espesor común: fichas, placas y otros modelos con secciones constantes por intervalos de altura. Admite, dentro de su alcance, relieves y rebajes en ambas caras, agujeros y varios cuerpos.
+| Tipo de pieza | Comportamiento | Resultado esperado |
+|---|---|---|
+| **Piezas mecánicas** | Soportes, carcasas, perfiles, ejes, bridas y taladros. Roscas normalizadas probadas en el banco (métricas ISO, paso unificado UNC y una trapecial) cuando la malla las define con claridad. | Sólido validado o aproximado. |
+| **Piezas planas por capas (2,5D)** | Piezas planas hechas de capas extruidas, como fichas, insignias, llaveros, placas, posavasos o plantillas. Contornos de cada capa a escala 1:1 en SVG, para corte láser o vinilo. | Sólido validado o aproximado. |
+| **Solevados (lofts)** | Transiciones entre secciones transversales regladas con tapas planas y taladros. | Sólido validado o aproximado según la malla. |
+| **Archivos multicuerpo (3MF / STL)** | Varios cuerpos independientes en el mismo archivo. | Reconstrucción independiente por cuerpo en un único archivo STEP. |
+| **Piezas orgánicas o escaneos libres** | Esculturas, figuras o modelos sin geometría analítica regular. | Sólido facetado (sólido de triángulos). |
 
-Tras reconstruir, el panel **Perfiles Token** organiza cuerpos, caras A/B y perfiles en un árbol, junto a su dibujo 2D. Puedes orientar cada cara desde el exterior, intercambiar A/B y exportar la selección o todos los perfiles. Si las bases son ambiguas, puedes indicar sus alturas manualmente.
+---
 
-![Modo Token con el modelo 3D, el árbol de caras y la vista de perfiles 2D](images/token-perfiles-svg.png)
+## Niveles de reconstrucción
 
-*Ejemplo de una pieza de doble cara con relieve, rebaje y agujero. A la izquierda se ven los perfiles de la cara A; en el centro, la malla del modelo ya reconstruido y validado.*
+Al procesar una pieza, MeshQSolid indica el nivel alcanzado:
 
-La opción **Rellenar huecos** crea cuerpos adicionales para los vacíos admitidos de la cara A, la B o ambas. El modelo original y los rellenos se exportan como piezas independientes y alineadas, para continuar la preparación de la impresión multicolor.
+- **✓ Sólido validado (`solido_validado`)**: Todas las caras son superficies exactas y pasa nuestras comprobaciones a 0,05 mm.
+- **≈ Sólido aproximado (`solido_aproximado`)**: La mayor parte con caras limpias y el resto facetado, con el porcentaje declarado.
+- **▦ Sólido facetado (`solido_facetado`)**: Sólido de triángulos.
 
-## Reconstrucción mecánica
+---
 
-El modo **Mecánico** amplía la reconstrucción a familias admitidas de caras planas, cilindros, conos, taladros, chaflanes y determinados redondeos y transiciones. El modo **Automático** evalúa las rutas disponibles y registra la estrategia aceptada.
+## Flujo de trabajo
 
-La aceptación depende de la geometría y de la tolerancia indicada. Cuando una pieza no se puede reconstruir dentro del alcance actual, la aplicación muestra un aviso con **Ver motivos…** y permite guardar el informe. La exportación STEP se habilita cuando existe un sólido validado.
+El flujo general de la aplicación se organiza en cuatro pasos:
 
-## Empezar en unos minutos
+1. **Añadir piezas**: Carga archivos STL, OBJ o 3MF individuales, carpetas o lotes.
+2. **Ajustes**: Selecciona el perfil y la tolerancia deseada para la reconstrucción (0,05 mm por defecto en el motor).
+3. **Convertir**: Procesa las piezas pendientes en la cola.
+4. **Ver el resultado**: Inspecciona el sólido obtenido y expórtalo a formato STEP.
 
-1. Abre la [release más reciente](https://github.com/Qualith/Mesh2Solid/releases/latest) y descarga **Mesh2Solid-0.1.17-Windows-x64.zip**.
-2. Extrae el ZIP completo y abre **Release/Mesh2Solid.exe**. Conserva la subcarpeta **app** junto al ejecutable: contiene el programa, sus dependencias y las licencias.
-3. Pulsa **Abrir malla…** o arrastra un STL, OBJ o 3MF a la ventana.
-4. Revisa las dimensiones, las unidades y la tolerancia; pulsa **Analizar** y después **Reconstruir**.
-5. Inspecciona el resultado y exporta a **STEP**. Para una pieza Token, revisa también sus perfiles y las opciones **SVG**.
 
-No hace falta instalar el entorno de desarrollo. Guarda tus modelos y exportaciones fuera de la carpeta de la aplicación para conservarlos al actualizar.
+---
 
-El engranaje de la esquina superior derecha reúne **Acerca de** y la selección de idioma. Sin una preferencia guardada, se inicia en español si el idioma principal del sistema es español; en los demás casos, en inglés. La elección guardada se aplica al reiniciar.
+## Revisión asistida
 
-## Alcance de esta entrega
+Cuando una pieza contiene detalles que admiten interpretación normalizada (como roscas métricas ISO o redondeos reconocibles sobre mallas bien definidas), el programa permite revisar cada zona detectada o aplicar en bloque las sugerencias que no superen la desviación geométrica de 0,05 mm.
 
-La distribución actual es **Windows de 64 bits**. Linux y otras plataformas quedan pendientes.
+---
 
-- La reconstrucción se limita a las familias geométricas implementadas; una malla arbitraria puede quedar rechazada.
-- El STEP contiene la geometría reconstruida. No recupera bocetos, historial de operaciones ni cotas nominales del diseño original.
-- La reparación de mallas está pendiente. Conviene partir de una malla adecuada para la reconstrucción y revisar los avisos del diagnóstico.
-- Los materiales, texturas y ajustes de impresión de un 3MF no se trasladan al resultado CAD.
-- El paquete se ha comprobado en el equipo de desarrollo con sus propias dependencias. La validación en otro PC limpio, Windows 11 y la edición en Fusion siguen pendientes.
+## Piezas planas por capas (2,5D)
 
-Las capturas corresponden a la aplicación real del paquete publicado. Esta entrega cuenta con comprobaciones de conversión, visor, exportación STEP e idiomas; el ZIP publicado tiene su checksum en **SHA256SUMS.txt**.
+Para piezas planas hechas de capas extruidas, como fichas, insignias, llaveros, placas, posavasos o plantillas:
+- Reconstrucción por capas a partir de caras opuestas.
+- Exportación en SVG de los contornos de cada capa a escala 1:1, para corte láser o vinilo.
+- Generación de cuerpos complementarios de relleno para impresión multicolor.
 
-## Fuente de OCCT
+---
 
-El [archivo fuente oficial `occt-7.9.3-source.tar.gz`](https://github.com/Qualith/Mesh2Solid/raw/refs/heads/main/third-party/occt/occt-7.9.3-source.tar.gz) está disponible en este repositorio junto con las [instrucciones de recompilación y licencia](third-party/occt/README.md).
+## Línea de comandos (`meshqsolid-cli.exe`)
 
-La fuente de esta dependencia se ofrece por separado del ZIP portable. No hace falta descargarla para ejecutar Mesh2Solid. Las licencias de las dependencias incluidas permanecen en `Release/app/licenses` dentro del paquete.
+Para automatización, pruebas y uso con scripts:
+
+```powershell
+meshqsolid-cli.exe pieza.stl --step pieza.step --summary resumen.json
+```
+
+- `--step <archivo.step>`: Exporta el sólido reconstruido en formato STEP.
+- `--summary <resumen.json>`: Genera un resumen compacto en JSON (~2 KB, esquema `m2s-summary/1`) con el nivel obtenido, número de caras y desviación.
+- `--tolerance <mm>`: Tolerancia superficial en milímetros (por defecto `0.05`).
+- Códigos de salida: `0` (sólido validado), `5` (sólido aproximado o facetado declarado), `3` (rechazado).
+
+---
+
+## Requisitos e instalación
+
+- **Sistema operativo**: Windows 10 o Windows 11 de 64 bits (x64).
+- **Instalación**: Cuando se publique la beta, descarga el ZIP portable de la sección Releases, descomprímelo en una carpeta y ejecuta `MeshQSolid.exe`. Conserva la carpeta `licenses/` y las DLLs junto al ejecutable. No requiere instalación adicional.
+
+---
+
+## Cómo informar de fallos
+
+Los informes de los probadores son fundamentales para corregir problemas del motor geométrico:
+
+1. Entra en la sección de [Issues](https://github.com/Qualith/MeshQSolid/issues).
+2. Selecciona la plantilla correspondiente:
+   - **Pieza no sale bien**: Si el modelo se rechaza, sale facetado o con errores. **Adjuntar el archivo de la malla (STL, OBJ o 3MF) es imprescindible para que podamos reproducir el fallo.** Incluye también el nivel obtenido y el archivo de resumen o registro.
+   - **Fallo del programa**: Para bloqueos o cierres inesperados.
+   - **Sugerencia**: Para propuestas sobre opciones o perfiles.
+
+---
+
+## Licencia y componentes de terceros
+
+- **Licencia**: MeshQSolid es de uso gratuito tanto personal como comercial bajo los términos de [LICENSE.md](LICENSE.md). Los archivos generados (STEP, SVG) pertenecen al usuario.
+- **Componentes de terceros**: El paquete incluye la carpeta `licenses/` con los avisos y licencias de las bibliotecas utilizadas (Open CASCADE Technology, Qt 6, entre otras).

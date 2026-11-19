@@ -1,0 +1,86 @@
+name: "Pieza no sale bien / Part conversion issue"
+description: "Informa sobre una pieza que se rechaza, sale facetada o no queda como esperabas / Report a part that is rejected, comes out faceted, or unexpected"
+title: "[Pieza / Part]: "
+labels: ["pieza / part", "conversion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por ayudarnos a probar MeshQSolid. Utiliza esta plantilla para reportar casos donde una malla 3D no se convierte como esperabas.
+        *Thank you for helping us test MeshQSolid. Use this template to report cases where a 3D mesh does not convert as expected.*
+
+  - type: input
+    id: version
+    attributes:
+      label: "Versión de MeshQSolid / Version"
+      description: "Indica la versión exacta (ej. v0.2.0-beta) / Specify the exact version (e.g. v0.2.0-beta)"
+      placeholder: "v0.2.0-beta"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: "Sistema Operativo / Operating System"
+      options:
+        - "Windows 11 (64-bit)"
+        - "Windows 10 (64-bit)"
+        - "Otro / Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: mesh_file
+    attributes:
+      label: "Archivo de malla / Mesh file (STL, OBJ, 3MF)"
+      description: "Arrastra y adjunta aquí el archivo de malla. Si supera el límite de tamaño de GitHub (10 MB), incluye un enlace público de descarga (Google Drive, Dropbox, WeTransfer, etc.) / Drag and attach the mesh file here. If larger than GitHub's limit (10 MB), provide a public download link."
+      placeholder: "Adjunta el archivo o pega aquí el enlace de descarga / Attach file or paste download link here"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: result_level
+    attributes:
+      label: "Nivel de resultado obtenido / Result level obtained"
+      description: "Distintivo mostrado en la aplicación o valor devuelto por la CLI / Badge shown in the app or value returned by CLI"
+      options:
+        - "Rechazado (código 3) / Rejected (code 3)"
+        - "Sólido aproximado (código 5) / Approximate solid (code 5)"
+        - "Sólido facetado (código 5) / Faceted solid (code 5)"
+        - "Sólido validado pero con errores geométricos / Validated solid but with geometric flaws"
+        - "No responde / Se cuelga durante la conversión / Hangs or freezes during conversion"
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary_or_report
+    attributes:
+      label: "Resumen o extracto del informe / Summary or report excerpt"
+      description: "Pega el contenido del archivo generado con `--summary` (resumen.json) o las líneas relevantes del informe / Paste the contents of the `--summary` JSON file or relevant lines from the report"
+      render: json
+      placeholder: |
+        {
+          "schema_version": "m2s-summary/1",
+          "status": "solido_aproximado",
+          "reason": "..."
+        }
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected_outcome
+    attributes:
+      label: "Qué resultado esperabas / Expected outcome"
+      description: "Describe qué forma o superficies esperabas que se reconocieran (ej. agujero roscado M5, cilindro continuo, extrusión plana, etc.) / Describe what shape or surfaces you expected to be recognized"
+      placeholder: "Esperaba que el taladro central se reconociera como rosca M6 y las paredes exteriores como cilindros continuos sin facetas..."
+    validations:
+      required: true
+
+  - type: input
+    id: parameters
+    attributes:
+      label: "Ajustes o comando utilizado / Settings or command used"
+      description: "Perfil de la GUI (Normal, Estricto, Tolerante FDM) o línea de comandos ejecutada / GUI profile or command line executed"
+      placeholder: "GUI: Perfil Automático con precisión Normal (0,05 mm) / CLI: meshqsolid-cli.exe pieza.stl --step pieza.step"
+    validations:
+      required: false

@@ -1,0 +1,46 @@
+name: "Sugerencia de mejora / Feature request"
+description: "Proponer una nueva función o mejora para MeshQSolid / Suggest a new feature or enhancement for MeshQSolid"
+title: "[Sugerencia / Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ¿Tienes una idea o propuesta para mejorar MeshQSolid? Cuéntanosla aquí.
+        *Do you have an idea or proposal to improve MeshQSolid? Share it with us here.*
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problema o necesidad que resuelve / Problem or use case it solves"
+      description: "¿Qué situación o flujo de trabajo actual resulta incómodo, lento o imposible? / What current scenario or workflow is inconvenient, slow, or impossible?"
+      placeholder: "Actualmente, al convertir una serie de piezas cilíndricas..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "Descripción de la sugerencia / Description of the suggestion"
+      description: "Explica de forma clara y concisa qué solución o función propones / Clearly describe your proposed solution or feature"
+      placeholder: "Me gustaría que hubiera un ajuste para..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternativas consideradas / Alternatives considered"
+      description: "¿Has probado otras soluciones o programas para resolver este problema? / Have you tried other workarounds or tools to achieve this?"
+      placeholder: "He intentado resolverlo manualmente cambiando..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Contexto adicional / Additional context"
+      description: "Capturas, diagramas, ejemplos de piezas o cualquier información relevante / Screenshots, sketches, sample models, or any relevant details"
+      placeholder: "Arrastra capturas o enlaces aquí / Drag screenshots or links here"
+    validations:
+      required: false
