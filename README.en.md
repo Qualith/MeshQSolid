@@ -10,7 +10,9 @@ It is designed for 3D printing workflows: convert a downloaded or exported mesh 
 
 MeshQSolid reconstructs analytical surfaces (planes, cylinders, cones, revolutions, ruled lofts, and tested standard thread profiles) from triangular meshes for use in solid CAD editors.
 
-**The MeshQSolid v0.2.0 beta is being prepared.** In the meantime, you can download the latest release published under the previous name, [Mesh2Solid 0.1.17](https://github.com/Qualith/MeshQSolid/releases/tag/v0.1.17) (portable package for Windows x64), with the old interface.
+**[Download MeshQSolid 0.2.0-beta for Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.0-beta)** · portable package, no installation.
+
+![MeshQSolid: original mesh and reconstructed solid, colored by surface type](images/meshqsolid-result-en.png)
 
 ---
 
@@ -52,7 +54,7 @@ The general application workflow consists of four steps:
 1. **Add parts**: Load individual STL, OBJ, or 3MF files, folders, or batches.
 2. **Settings**: Select conversion profile and required tolerance (0.05 mm engine default).
 3. **Convert**: Process pending parts in the queue.
-4. **View result**: Inspect the reconstructed solid and export to STEP format.
+4. **View the result**: Compare the mesh and the solid, review doubtful zones if there are any, and export the STEP ("Export all" or "Export selected").
 
 
 ---
@@ -90,7 +92,7 @@ meshqsolid-cli.exe part.stl --step part.step --summary summary.json
 ## System requirements and installation
 
 - **Operating System**: 64-bit Windows 10 or Windows 11 (x64).
-- **Installation**: Once the beta is released, download the portable ZIP from the Releases section, extract it to a folder, and run `MeshQSolid.exe`. Keep the `licenses/` folder and DLL files alongside the executable. No additional installer required.
+- **Installation**: Download the portable ZIP from the [Releases](https://github.com/Qualith/MeshQSolid/releases) section, extract it to a folder, and run `MeshQSolid.exe`. Keep the `licenses/` folder and DLL files alongside the executable. No additional installer required.
 
 ---
 

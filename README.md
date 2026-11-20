@@ -10,7 +10,9 @@ Está pensado para la impresión 3D: permite tomar una malla descargada de un re
 
 MeshQSolid reconstruye superficies analíticas (planos, cilindros, conos, revoluciones, solevados reglados y determinadas roscas normalizadas) a partir de mallas triangulares para su uso en editores de sólidos CAD.
 
-**La beta v0.2.0 de MeshQSolid está en preparación.** Mientras tanto, puedes descargar la última versión publicada con el nombre anterior, [Mesh2Solid 0.1.17](https://github.com/Qualith/MeshQSolid/releases/tag/v0.1.17) (paquete portable para Windows x64), con la interfaz antigua.
+**[Descargar MeshQSolid 0.2.0-beta para Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.0-beta)** · paquete portable, sin instalación.
+
+![MeshQSolid: malla original y sólido reconstruido, coloreado por tipo de superficie](images/meshqsolid-resultado-es.png)
 
 ---
 
@@ -52,7 +54,7 @@ El flujo general de la aplicación se organiza en cuatro pasos:
 1. **Añadir piezas**: Carga archivos STL, OBJ o 3MF individuales, carpetas o lotes.
 2. **Ajustes**: Selecciona el perfil y la tolerancia deseada para la reconstrucción (0,05 mm por defecto en el motor).
 3. **Convertir**: Procesa las piezas pendientes en la cola.
-4. **Ver el resultado**: Inspecciona el sólido obtenido y expórtalo a formato STEP.
+4. **Ver el resultado**: Compara la malla y el sólido, revisa las zonas dudosas si las hay y exporta el STEP («Exportar todo» o «Exportar la seleccionada»).
 
 
 ---
@@ -90,7 +92,7 @@ meshqsolid-cli.exe pieza.stl --step pieza.step --summary resumen.json
 ## Requisitos e instalación
 
 - **Sistema operativo**: Windows 10 o Windows 11 de 64 bits (x64).
-- **Instalación**: Cuando se publique la beta, descarga el ZIP portable de la sección Releases, descomprímelo en una carpeta y ejecuta `MeshQSolid.exe`. Conserva la carpeta `licenses/` y las DLLs junto al ejecutable. No requiere instalación adicional.
+- **Instalación**: Descarga el ZIP portable de la sección [Releases](https://github.com/Qualith/MeshQSolid/releases), descomprímelo en una carpeta y ejecuta `MeshQSolid.exe`. Conserva la carpeta `licenses/` y las DLLs junto al ejecutable. No requiere instalación adicional.
 
 ---
 
