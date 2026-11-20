@@ -10,7 +10,7 @@ It is designed for 3D printing workflows: convert a downloaded or exported mesh 
 
 MeshQSolid reconstructs analytical surfaces (planes, cylinders, cones, revolutions, ruled lofts, and tested standard thread profiles) from triangular meshes for use in solid CAD editors.
 
-**[Download MeshQSolid 0.2.0-beta for Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.0-beta)** · portable package, no installation.
+**[Download MeshQSolid 0.2.0-beta for Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.0-beta)** · portable package, no installation. It includes the graphical interface and `meshqsolid-cli.exe`, which converts without a window for scripts and AI agents ([see below](#command-line-and-agents-headless)).
 
 ![MeshQSolid: original mesh and reconstructed solid, colored by surface type](images/meshqsolid-result-en.png)
 
@@ -61,7 +61,9 @@ The general application workflow consists of four steps:
 
 ## Assisted review
 
-When a part contains features that match standard definitions (such as identifiable ISO metric threads or fillets on well-defined meshes), the software allows inspecting detected areas or applying suggestions that fall within the 0.05 mm geometric tolerance.
+When a part contains features that match standard definitions (such as identifiable ISO metric threads or fillets on well-defined meshes), the software allows inspecting detected areas or applying suggestions that fall within the 0.05 mm geometric tolerance. Zones are reviewed one at a time: each card shows the proposal, how far it deviates from the mesh, and what to do with it.
+
+![Reviewing doubtful zones, card by card](images/meshqsolid-review-en.png)
 
 ---
 
@@ -74,9 +76,9 @@ For flat parts made of extruded layers, such as badges, keychains, plates, coast
 
 ---
 
-## Command-line interface (`meshqsolid-cli.exe`)
+## Command line and agents (headless)
 
-For automation, testing, and batch scripting:
+`meshqsolid-cli.exe` performs the same conversion as the interface, without a window. Use it to process batches from a script, or to let an AI agent convert parts and read the outcome: every run leaves a short, easy-to-parse JSON summary and ends with an exit code that tells the level reached.
 
 ```powershell
 meshqsolid-cli.exe part.stl --step part.step --summary summary.json
@@ -85,7 +87,10 @@ meshqsolid-cli.exe part.stl --step part.step --summary summary.json
 - `--step <file.step>`: Exports the reconstructed solid in STEP format.
 - `--summary <summary.json>`: Generates a compact JSON summary (~2 KB, schema `m2s-summary/1`) with status, face counts, and deviation.
 - `--tolerance <mm>`: Surface tolerance in millimetres (default `0.05`).
+- `--report <report.json>`: Full conversion report, with the checks and the reasons.
+- `--hints <hints.json>`: Applies already-reviewed decisions on doubtful zones (threads, fillets…), the equivalent of the assisted review in the interface.
 - Exit codes: `0` (validated solid), `5` (declared approximate or faceted solid), `3` (rejected).
+- Output folders are created automatically, and settings can be isolated per run with the `MESH2SOLID_SETTINGS_FILE` environment variable.
 
 ---
 

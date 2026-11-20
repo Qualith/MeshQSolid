@@ -10,7 +10,7 @@ Está pensado para la impresión 3D: permite tomar una malla descargada de un re
 
 MeshQSolid reconstruye superficies analíticas (planos, cilindros, conos, revoluciones, solevados reglados y determinadas roscas normalizadas) a partir de mallas triangulares para su uso en editores de sólidos CAD.
 
-**[Descargar MeshQSolid 0.2.0-beta para Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.0-beta)** · paquete portable, sin instalación.
+**[Descargar MeshQSolid 0.2.0-beta para Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.0-beta)** · paquete portable, sin instalación. Incluye la interfaz gráfica y `meshqsolid-cli.exe`, que convierte sin ventana para scripts y agentes de IA ([más abajo](#línea-de-comandos-y-agentes-sin-interfaz)).
 
 ![MeshQSolid: malla original y sólido reconstruido, coloreado por tipo de superficie](images/meshqsolid-resultado-es.png)
 
@@ -61,7 +61,9 @@ El flujo general de la aplicación se organiza en cuatro pasos:
 
 ## Revisión asistida
 
-Cuando una pieza contiene detalles que admiten interpretación normalizada (como roscas métricas ISO o redondeos reconocibles sobre mallas bien definidas), el programa permite revisar cada zona detectada o aplicar en bloque las sugerencias que no superen la desviación geométrica de 0,05 mm.
+Cuando una pieza contiene detalles que admiten interpretación normalizada (como roscas métricas ISO o redondeos reconocibles sobre mallas bien definidas), el programa permite revisar cada zona detectada o aplicar en bloque las sugerencias que no superen la desviación geométrica de 0,05 mm. Las zonas se revisan de una en una: cada ficha muestra la propuesta, cuánto se aparta de la malla y qué hacer con ella.
+
+![Revisión de zonas dudosas, de ficha en ficha](images/meshqsolid-revision-es.png)
 
 ---
 
@@ -74,9 +76,9 @@ Para piezas planas hechas de capas extruidas, como fichas, insignias, llaveros, 
 
 ---
 
-## Línea de comandos (`meshqsolid-cli.exe`)
+## Línea de comandos y agentes (sin interfaz)
 
-Para automatización, pruebas y uso con scripts:
+`meshqsolid-cli.exe` hace la misma conversión que la interfaz, pero sin ventana. Sirve para procesar lotes desde un script o para que un agente de IA convierta piezas y lea el resultado: cada ejecución deja un resumen JSON breve, fácil de interpretar, y termina con un código de salida que indica el nivel alcanzado.
 
 ```powershell
 meshqsolid-cli.exe pieza.stl --step pieza.step --summary resumen.json
@@ -85,7 +87,10 @@ meshqsolid-cli.exe pieza.stl --step pieza.step --summary resumen.json
 - `--step <archivo.step>`: Exporta el sólido reconstruido en formato STEP.
 - `--summary <resumen.json>`: Genera un resumen compacto en JSON (~2 KB, esquema `m2s-summary/1`) con el nivel obtenido, número de caras y desviación.
 - `--tolerance <mm>`: Tolerancia superficial en milímetros (por defecto `0.05`).
+- `--report <informe.json>`: Informe completo de la conversión, con las comprobaciones y los motivos.
+- `--hints <pistas.json>`: Aplica decisiones ya revisadas sobre las zonas dudosas (roscas, redondeos…), el equivalente a la revisión asistida de la interfaz.
 - Códigos de salida: `0` (sólido validado), `5` (sólido aproximado o facetado declarado), `3` (rechazado).
+- Las carpetas de salida se crean solas, y la configuración puede aislarse por ejecución con la variable `MESH2SOLID_SETTINGS_FILE`.
 
 ---
 
