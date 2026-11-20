@@ -4,7 +4,7 @@
 
 *(antes Mesh2Solid)*
 
-Conversión de mallas 3D poligonales (STL, OBJ, 3MF) a sólidos CAD en formato STEP (B-Rep).
+De malla a sólido editable, para volver a imprimir: convierte archivos STL, OBJ y 3MF en sólidos STEP con caras exactas (planos, cilindros, conos, redondeos), listos para modificar en tu editor de sólidos.
 
 Está pensado para la impresión 3D: permite tomar una malla descargada de un repositorio o exportada de otro software, convertirla en sólido y modificarla en un editor de sólidos (cambiar una medida, añadir un taladro, adaptar un encaje) para volver a imprimirla. Funciona mejor con mallas que proceden de un diseño CAD exportado (las habituales con caras planas, cilindros y redondeos), ya que reconstruye esas superficies analíticas exactas. No es una herramienta de ingeniería inversa para escaneos 3D: las mallas de escáner (ruidosas, densas u orgánicas) no son su objetivo, y en esos casos el resultado será como mucho aproximado o facetado.
 

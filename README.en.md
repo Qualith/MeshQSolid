@@ -4,7 +4,7 @@
 
 *(formerly Mesh2Solid)*
 
-Converts 3D polygonal meshes (STL, OBJ, 3MF) into CAD solids in STEP format (B-Rep).
+From mesh to editable solid, ready to print again: it turns STL, OBJ and 3MF files into STEP solids with exact faces (planes, cylinders, cones, fillets), ready to modify in your solid modeler.
 
 It is designed for 3D printing workflows: convert a downloaded or exported mesh into a solid, modify it in a solid CAD modeler (change a dimension, add a hole, adapt a fit), and print it again. It works best with meshes originating from exported CAD designs (the usual models with planar faces, cylinders, and fillets), reconstructing those exact analytical surfaces. It is not a reverse-engineering tool for 3D scans: scan meshes (noisy, dense, or organic) are outside its scope, and will yield at most an approximate or faceted solid.
 
