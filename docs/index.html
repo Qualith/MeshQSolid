@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeshQSolid</title>
+<meta name="description" content="MeshQSolid convierte mallas STL, OBJ y 3MF en sólidos STEP editables, pensado para la impresión 3D. Gratuito, para Windows x64.">
+<meta property="og:title" content="MeshQSolid">
+<meta property="og:description" content="De malla a sólido STEP editable, pensado para la impresión 3D.">
+<meta property="og:image" content="https://qualith.github.io/MeshQSolid/img/resultado-es.png">
+<style>
+:root{
+  --bg:#f6f7f9;--surface:#ffffff;--text:#1d232b;--muted:#5b6672;--line:#dfe3e8;
+  --accent:#2563eb;--accent-text:#ffffff;--ok:#1f8a4c;--code:#eef1f5;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#12161b;--surface:#1a2027;--text:#e6e9ed;--muted:#9aa5b1;--line:#2b333c;--accent:#3b82f6;--ok:#3fb26f;--code:#222a33;}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:16px;height:58px}
+.brand{font-weight:700;font-size:18px;color:var(--text);text-decoration:none;letter-spacing:.2px}
+nav{display:flex;gap:18px;margin-left:auto;align-items:center}
+nav a{color:var(--muted);text-decoration:none;font-size:15px}
+nav a:hover{color:var(--text)}
+.lang{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:5px 10px;font:inherit;font-size:14px;cursor:pointer}
+.hero{padding:64px 0 32px;text-align:center}
+.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.15;margin:0 0 14px}
+.hero p.lead{font-size:clamp(17px,2.2vw,20px);color:var(--muted);max-width:720px;margin:0 auto 26px}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-text);text-decoration:none;font-weight:600;padding:12px 22px;border-radius:10px}
+.btn:hover{filter:brightness(1.07)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);margin-left:8px}
+.small{font-size:14px;color:var(--muted);margin-top:12px}
+.shot{margin:36px auto 0;max-width:1000px;border-radius:12px;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.12);background:var(--surface)}
+.shot img{display:block;width:100%;height:auto}
+section{padding:56px 0;border-top:1px solid var(--line)}
+section h2{font-size:28px;margin:0 0 10px}
+section p.intro{color:var(--muted);max-width:760px;margin:0 0 28px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.card h3{margin:0 0 6px;font-size:17px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.split{display:grid;gap:28px;grid-template-columns:1fr 1.25fr;align-items:center}
+.split.rev{grid-template-columns:1.25fr 1fr}
+.split .shot{margin:0}
+@media (max-width:820px){.split,.split.rev{grid-template-columns:1fr}.split.rev .shot{order:2}}
+ul.clean{padding-left:20px;margin:0}
+ul.clean li{margin:6px 0}
+.levels .card h3 .ok{color:var(--ok)}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font:14px/1.5 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;margin:0 0 18px}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.92em;background:var(--code);padding:1px 5px;border-radius:5px}
+pre code{background:none;padding:0}
+.note{border-left:3px solid var(--accent);background:var(--surface);padding:14px 18px;border-radius:0 10px 10px 0;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between}
+[data-lang="en"] .es,[data-lang="es"] .en{display:none!important}
+@media (max-width:640px){nav a.hide-sm{display:none}.btn.ghost{margin:10px 0 0}}
+</style>
+</head>
+<body data-lang="es">
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">MeshQSolid</a>
+    <nav>
+      <a class="hide-sm" href="#que"><span class="es">Qué hace</span><span class="en">What it does</span></a>
+      <a class="hide-sm" href="#agentes"><span class="es">Agentes</span><span class="en">Agents</span></a>
+      <a class="hide-sm" href="https://github.com/Qualith/MeshQSolid">GitHub</a>
+      <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language">English</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <h1>
+      <span class="es">De malla a sólido editable, para volver a imprimir</span>
+      <span class="en">From mesh to editable solid, ready to print again</span>
+    </h1>
+    <p class="lead">
+      <span class="es">MeshQSolid convierte archivos STL, OBJ y 3MF en sólidos STEP con caras exactas (planos, cilindros, conos, redondeos), para que puedas cambiar una medida, añadir un taladro o adaptar un encaje en tu editor de sólidos.</span>
+      <span class="en">MeshQSolid turns STL, OBJ and 3MF files into STEP solids with exact faces (planes, cylinders, cones, fillets), so you can change a dimension, add a hole or adapt a fit in your solid modeler.</span>
+    </p>
+    <a class="btn" href="https://github.com/Qualith/MeshQSolid/releases/latest">
+      <span class="es">Descargar la beta para Windows</span><span class="en">Download the beta for Windows</span>
+    </a>
+    <a class="btn ghost" href="https://github.com/Qualith/MeshQSolid">
+      <span class="es">Ver en GitHub</span><span class="en">View on GitHub</span>
+    </a>
+    <p class="small">
+      <span class="es">Versión 0.2.0-beta · gratuita · Windows 10/11 de 64 bits · portable, sin instalación</span>
+      <span class="en">Version 0.2.0-beta · free · 64-bit Windows 10/11 · portable, no installation</span>
+    </p>
+    <div class="shot">
+      <img class="es" src="img/resultado-es.png" alt="Malla original y sólido reconstruido, coloreado por tipo de superficie" width="1920" height="1001">
+      <img class="en" src="img/result-en.png" alt="Original mesh and reconstructed solid, colored by surface type" width="1920" height="1001" loading="lazy">
+    </div>
+  </div>
+
+  <section id="que">
+    <div class="wrap">
+      <h2><span class="es">Para quién es</span><span class="en">Who it is for</span></h2>
+      <p class="intro">
+        <span class="es">Está pensado para la impresión 3D: descargas un STL de un repositorio de modelos, o tienes uno tuyo exportado de otro programa, lo pasas a sólido y lo modificas. Funciona mejor con mallas que vienen de un diseño CAD. No es una herramienta para escaneos 3D: con ellos el resultado será, como mucho, aproximado o facetado.</span>
+        <span class="en">It is meant for 3D printing: you download an STL from a model repository, or have one of your own exported from another program, turn it into a solid and modify it. It works best with meshes that come from a CAD design. It is not a tool for 3D scans: with those, the result will be approximate or faceted at best.</span>
+      </p>
+      <div class="grid">
+        <div class="card">
+          <h3><span class="es">Piezas mecánicas</span><span class="en">Mechanical parts</span></h3>
+          <p><span class="es">Soportes, carcasas, bridas, taladros y redondeos. Roscas métricas ISO y UNC cuando la malla las define bien.</span><span class="en">Brackets, housings, flanges, holes and fillets. ISO metric and UNC threads when the mesh defines them well.</span></p>
+        </div>
+        <div class="card">
+          <h3><span class="es">Piezas planas por capas</span><span class="en">Layered flat parts</span></h3>
+          <p><span class="es">Placas, llaveros o plantillas de capas extruidas. Además del STEP, contornos en SVG a escala 1:1 para corte láser o vinilo.</span><span class="en">Plates, keychains or templates made of extruded layers. Besides the STEP, 1:1 SVG outlines for laser or vinyl cutting.</span></p>
+        </div>
+        <div class="card">
+          <h3><span class="es">Varios cuerpos</span><span class="en">Several bodies</span></h3>
+          <p><span class="es">3MF con varios objetos o STL con piezas sueltas: cada cuerpo se convierte por separado y se exportan juntos en un STEP.</span><span class="en">3MF with several objects, or STL with separate parts: each body is converted on its own and they are exported together in one STEP.</span></p>
+        </div>
+        <div class="card">
+          <h3><span class="es">Lotes</span><span class="en">Batches</span></h3>
+          <p><span class="es">Añade una carpeta entera; «Convertir todo» procesa solo lo que falta y «Exportar todo» guarda los STEP donde elijas.</span><span class="en">Add a whole folder; "Convert all" processes only what is missing and "Export all" saves the STEP files wherever you choose.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap levels">
+      <h2><span class="es">Siempre sabes qué has obtenido</span><span class="en">You always know what you got</span></h2>
+      <p class="intro"><span class="es">Cada resultado lleva su nivel, sin adornos.</span><span class="en">Every result states its level, plainly.</span></p>
+      <div class="grid">
+        <div class="card">
+          <h3><span class="ok">✓</span> <span class="es">Sólido validado</span><span class="en">Validated solid</span></h3>
+          <p><span class="es">Todas las caras son superficies exactas y pasa las comprobaciones a 0,05 mm. Editable como sólido.</span><span class="en">Every face is an exact surface and passes the checks at 0.05 mm. Editable as a solid.</span></p>
+        </div>
+        <div class="card">
+          <h3>≈ <span class="es">Sólido aproximado</span><span class="en">Approximate solid</span></h3>
+          <p><span class="es">La mayor parte son caras limpias y el resto queda facetado; el porcentaje se indica.</span><span class="en">Most of the part is clean faces and the rest is faceted; the percentage is stated.</span></p>
+        </div>
+        <div class="card">
+          <h3>▦ <span class="es">Sólido facetado</span><span class="en">Faceted solid</span></h3>
+          <p><span class="es">Un sólido hecho de triángulos, para formas orgánicas o mallas que no admiten otra cosa.</span><span class="en">A solid made of triangles, for organic shapes or meshes that allow nothing else.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split">
+      <div>
+        <h2><span class="es">Tú decides en las zonas dudosas</span><span class="en">You decide on doubtful zones</span></h2>
+        <p><span class="es">Si una rosca, un redondeo o un cilindro admite más de una lectura, MeshQSolid lo pregunta. Las zonas se revisan de ficha en ficha: cada una muestra la propuesta, cuánto se aparta de la malla y qué hacer con ella.</span><span class="en">If a thread, fillet or cylinder can be read in more than one way, MeshQSolid asks. Zones are reviewed card by card: each one shows the proposal, how far it deviates from the mesh, and what to do with it.</span></p>
+        <p><span class="es">«Aplicar todas» acepta solo lo que no se aparta más de 0,05 mm; lo demás queda para ti.</span><span class="en">"Apply all" accepts only what deviates 0.05 mm or less; the rest is left to you.</span></p>
+      </div>
+      <div class="shot">
+        <img class="es" src="img/revision-es.png" alt="Revisión de una zona dudosa: redondeo de 2 mm" width="1475" height="970" loading="lazy">
+        <img class="en" src="img/review-en.png" alt="Reviewing a doubtful zone: 2 mm fillet" width="1475" height="970" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split rev">
+      <div class="shot">
+        <img class="es" src="img/progreso-es.png" alt="Conversión en curso con la fase y el tiempo transcurrido" width="1920" height="1001" loading="lazy">
+        <img class="en" src="img/progress-en.png" alt="Conversion in progress with phase and elapsed time" width="1920" height="1001" loading="lazy">
+      </div>
+      <div>
+        <h2><span class="es">Original y resultado, lado a lado</span><span class="en">Original and result, side by side</span></h2>
+        <ul class="clean">
+          <li><span class="es">Malla y sólido en la misma vista, con la cámara sincronizada y un cubo de vistas.</span><span class="en">Mesh and solid in the same view, with synchronized cameras and a view cube.</span></li>
+          <li><span class="es">Color por tipo de superficie, con el porcentaje de cada una.</span><span class="en">Color by surface type, with each one's percentage.</span></li>
+          <li><span class="es">Progreso visible mientras convierte: fase, tiempo y «Detener».</span><span class="en">Visible progress while converting: phase, time and "Stop".</span></li>
+          <li><span class="es">Español e inglés, tema claro u oscuro.</span><span class="en">Spanish and English, light or dark theme.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="agentes">
+    <div class="wrap">
+      <h2><span class="es">Línea de comandos y agentes</span><span class="en">Command line and agents</span></h2>
+      <p class="intro">
+        <span class="es">El paquete incluye <code>meshqsolid-cli.exe</code>, que hace la misma conversión sin ventana. Sirve para procesar lotes desde un script o para que un agente de IA convierta piezas y lea el resultado: cada ejecución deja un resumen JSON breve y termina con un código de salida según el nivel.</span>
+        <span class="en">The package includes <code>meshqsolid-cli.exe</code>, which performs the same conversion without a window. Use it to process batches from a script, or let an AI agent convert parts and read the outcome: every run leaves a short JSON summary and ends with an exit code that tells the level.</span>
+      </p>
+<pre><code>meshqsolid-cli.exe pieza.stl --step pieza.step --summary resumen.json</code></pre>
+      <div class="grid">
+        <div class="card"><h3><code>--summary</code></h3><p><span class="es">Resumen JSON de unos 2 KB: nivel, caras y desviación.</span><span class="en">About 2 KB JSON summary: level, faces and deviation.</span></p></div>
+        <div class="card"><h3><code>--report</code></h3><p><span class="es">Informe completo, con las comprobaciones y los motivos.</span><span class="en">Full report, with the checks and the reasons.</span></p></div>
+        <div class="card"><h3><code>--hints</code></h3><p><span class="es">Aplica decisiones ya revisadas sobre las zonas dudosas.</span><span class="en">Applies already-reviewed decisions on doubtful zones.</span></p></div>
+        <div class="card"><h3><span class="es">Códigos de salida</span><span class="en">Exit codes</span></h3><p><code>0</code> <span class="es">validado</span><span class="en">validated</span> · <code>5</code> <span class="es">aproximado o facetado</span><span class="en">approximate or faceted</span> · <code>3</code> <span class="es">rechazado</span><span class="en">rejected</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2><span class="es">Es una beta</span><span class="en">It is a beta</span></h2>
+      <p class="note">
+        <span class="es">Puede fallar. Antes de fabricar una pieza, revisa la geometría y las medidas en tu editor de sólidos. Las formas orgánicas, los redondeos encadenados y las mallas muy densas o dañadas saldrán aproximados, facetados o rechazados. Si un modelo no se convierte bien, lo que más ayuda es <a href="https://github.com/Qualith/MeshQSolid/issues/new/choose">abrir una incidencia</a> adjuntando la malla.</span>
+        <span class="en">It may fail. Before manufacturing a part, check the geometry and dimensions in your solid modeler. Organic shapes, chained fillets and very dense or damaged meshes will come out approximate, faceted or rejected. If a model does not convert well, the most helpful thing is to <a href="https://github.com/Qualith/MeshQSolid/issues/new/choose">open an issue</a> with the mesh attached.</span>
+      </p>
+      <p style="margin-top:26px">
+        <a class="btn" href="https://github.com/Qualith/MeshQSolid/releases/latest"><span class="es">Descargar MeshQSolid</span><span class="en">Download MeshQSolid</span></a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Qualith · <span class="es">uso gratuito, código cerrado</span><span class="en">free to use, closed source</span></span>
+    <span>
+      <a href="https://github.com/Qualith/MeshQSolid/blob/main/LICENSE.md"><span class="es">Licencia</span><span class="en">License</span></a> ·
+      <a href="https://github.com/Qualith/MeshQSolid/blob/main/THIRD_PARTY_NOTICES.md"><span class="es">Componentes de terceros</span><span class="en">Third-party components</span></a> ·
+      <a href="https://github.com/Qualith/MeshQSolid/issues"><span class="es">Incidencias</span><span class="en">Issues</span></a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var body=document.body, btn=document.getElementById('lang');
+  function set(l){
+    body.setAttribute('data-lang',l);
+    document.documentElement.lang=l;
+    btn.textContent = l==='es' ? 'English' : 'Español';
+    try{localStorage.setItem('mqs-lang',l);}catch(e){}
+  }
+  var saved=null; try{saved=localStorage.getItem('mqs-lang');}catch(e){}
+  var q=(location.search.match(/[?&]lang=(es|en)/)||[])[1];
+  set(q || saved || ((navigator.language||'es').toLowerCase().indexOf('es')===0 ? 'es' : 'en'));
+  btn.addEventListener('click',function(){ set(body.getAttribute('data-lang')==='es'?'en':'es'); });
+})();
+</script>
+</body>
+</html>
