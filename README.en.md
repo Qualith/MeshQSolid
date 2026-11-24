@@ -10,7 +10,7 @@ It is designed for 3D printing workflows: convert a downloaded or exported mesh 
 
 MeshQSolid reconstructs analytical surfaces (planes, cylinders, cones, revolutions, ruled lofts, and tested standard thread profiles) from triangular meshes for use in solid CAD editors.
 
-**[Download MeshQSolid 0.2.0-beta for Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.0-beta)** · portable package, no installation. It includes the graphical interface and `meshqsolid-cli.exe`, which converts without a window for scripts and AI agents ([see below](#command-line-and-agents-headless)).
+**[Download MeshQSolid 0.2.1-beta for Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.1-beta)** · portable package, no installation. It includes the graphical interface and `meshqsolid-cli.exe`, which converts without a window for scripts and AI agents ([see below](#command-line-and-agents-headless)).
 
 ![MeshQSolid: original mesh and reconstructed solid, colored by surface type](images/meshqsolid-result-en.png)
 

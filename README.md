@@ -10,7 +10,7 @@ Está pensado para la impresión 3D: permite tomar una malla descargada de un re
 
 MeshQSolid reconstruye superficies analíticas (planos, cilindros, conos, revoluciones, solevados reglados y determinadas roscas normalizadas) a partir de mallas triangulares para su uso en editores de sólidos CAD.
 
-**[Descargar MeshQSolid 0.2.0-beta para Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.0-beta)** · paquete portable, sin instalación. Incluye la interfaz gráfica y `meshqsolid-cli.exe`, que convierte sin ventana para scripts y agentes de IA ([más abajo](#línea-de-comandos-y-agentes-sin-interfaz)).
+**[Descargar MeshQSolid 0.2.1-beta para Windows x64](https://github.com/Qualith/MeshQSolid/releases/tag/v0.2.1-beta)** · paquete portable, sin instalación. Incluye la interfaz gráfica y `meshqsolid-cli.exe`, que convierte sin ventana para scripts y agentes de IA ([más abajo](#línea-de-comandos-y-agentes-sin-interfaz)).
 
 ![MeshQSolid: malla original y sólido reconstruido, coloreado por tipo de superficie](images/meshqsolid-resultado-es.png)
 
